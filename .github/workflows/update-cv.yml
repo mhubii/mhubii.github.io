@@ -1,0 +1,43 @@
+name: Update CV
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-cv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up SSH for private CV submodule
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.CV_DEPLOY_KEY }}
+
+      - name: Pull latest CV source
+        run: git submodule update --init --remote cv
+
+      - name: Compile CV
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume_general_robotic.tex
+          working_directory: cv
+
+      - name: Stage compiled PDF
+        run: |
+          mkdir -p files
+          cp cv/resume_general_robotic.pdf files/cv.pdf
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cv files/cv.pdf
+          git diff --staged --quiet || git commit -m "Update CV from huber_cv"
+          git push
