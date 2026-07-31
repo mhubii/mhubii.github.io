@@ -1,4 +1,4 @@
 [submodule "cv"]
 	path = cv
-	url = git@github.com:mhubii/huber_cv.git
+	url = git@github.com:mhubii/cv.git
 	branch = main
