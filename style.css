@@ -4,6 +4,7 @@
   --muted: #555;
   --bg: #fff;
   --accent: #2454ff;
+  --border: #ddd;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -12,6 +13,7 @@
     --muted: #aaa;
     --bg: #121212;
     --accent: #7aa2ff;
+    --border: #333;
   }
 }
 
@@ -66,5 +68,76 @@ h1 {
 }
 
 .links a:hover {
+  text-decoration: underline;
+}
+
+.projects {
+  margin-top: 3rem;
+}
+
+.projects h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.project-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.project-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.project-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+.project-links a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.project-links a:hover {
   text-decoration: underline;
 }
